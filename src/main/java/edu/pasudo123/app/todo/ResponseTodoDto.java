@@ -1,9 +1,6 @@
 package edu.pasudo123.app.todo;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -11,6 +8,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @ToString
+@EqualsAndHashCode
 public class ResponseTodoDto {
 
     private Long id;
