@@ -60,6 +60,9 @@ public class TodoControllerTest {
          *
          * [ 문제점 2 ]
          * - 이제 내용이 안 찍혀 나온다. 무슨 문제일까 (post 인데 리턴값이 있어서 그런걸까?)
+         *
+         * [ Solution ]
+         * - @EqualsAndHashCode 어노테이션을 RequestTodoDto 와 ResponseTodoDto 에 각각 붙이니 해결
          */
 
         // given
@@ -67,11 +70,11 @@ public class TodoControllerTest {
 
         MvcResult result = mockMvc.perform(post("/api/todos")
                     .content(objectMapper.writeValueAsString(requestTodoDto))
-                    .contentType(MediaType.APPLICATION_JSON))
+                    .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
+                .andDo(print())
                 .andReturn();
-
-        log.debug(result.getResponse().getContentAsString());
+        
     }
 
     @Test
