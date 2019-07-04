@@ -1,5 +1,6 @@
 package edu.pasudo123.app.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.pasudo123.app.util.ModelMapperUtils;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -12,6 +13,11 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class BeanConfig {
+
+    @Bean
+    public ObjectMapper objectMapper(){
+        return new ObjectMapper();
+    }
 
     @Bean
     public ModelMapper modelMapper(){
