@@ -7,29 +7,30 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.mock.mockito.MockReset;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(TodoController.class)
 @Slf4j
 public class TodoControllerTest {
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Autowired
     private MockMvc mockMvc;
@@ -39,8 +40,6 @@ public class TodoControllerTest {
 
     @Test
     public void Todo_등록_API_Test() throws Exception {
-
-        ObjectMapper objectMapper = new ObjectMapper();
 
         RequestTodoDto requestTodoDto = new RequestTodoDto();
         requestTodoDto.setContent("테스트 코드 작성하기");
@@ -78,7 +77,7 @@ public class TodoControllerTest {
     }
 
     @Test
-    public void Todo_조회_API_테스트() throws Exception{
+    public void Todo_조회_API_테스트() throws Exception {
 
         List<ResponseTodoDto> responseTodoDtoList = new ArrayList<>();
 
