@@ -10,6 +10,7 @@
   2. axios 플러그인 설치
   3. vuex 설치 (의존성 주입 : package.json)
   4. vue-router 설치 (의존성 주입 - pakcage.json)
+  5. vuetify 플러그인 설치
   
 ```code
 vue create frontend
@@ -19,4 +20,6 @@ vue add axios
 npm install vuex --save
 
 npm install vue-router
+
+vue add vuetify
 ```
