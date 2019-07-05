@@ -8,10 +8,10 @@
 * 순서대로 진행하였음
   1. vue 프로젝트 생성
   2. axios 플러그인 설치
-  3. vuex 설치 (의존성 주입 : package.json)
-  4. vue-router 설치 (의존성 주입 - pakcage.json)
+  3. vuex 설치 (의존성 주입, package.json)
+  4. vue-router 설치 (의존성 주입, pakcage.json)
   5. vuetify 플러그인 설치
-  
+
 ```code
 vue create frontend
 
