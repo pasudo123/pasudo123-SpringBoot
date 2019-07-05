@@ -1,20 +1,21 @@
-import Vue from 'vue'
+
 import './plugins/vuetify'
 import './plugins/axios'
-// import App from './App.vue'
+import router from './plugins/router'
+import Vue from 'vue'
 import PaMain from './components/PaMain'
 
 import Vuex from 'vuex'
-import VueRouter from 'vue-router'
+import VueRouter from "vue-router";
+
+// vue-router, vuex 사용
+Vue.use(VueRouter);
+Vue.use(Vuex);
 
 Vue.config.productionTip = false;
 
-/**
- * Vuex, VueRouter 사용
- */
-Vue.use(Vuex);
-Vue.use(VueRouter);
-
+/* eslint-disable */
 new Vue({
   render: h => h(PaMain),
+  router: router,
 }).$mount('#app');
