@@ -1,24 +1,16 @@
 <template>
     <div class="todoForm">
-        <v-form>
-            <v-container>
-                <v-layout align="center">
-                    <v-flex>
-                        <v-text-field
-                                class="todoTextField"
-                                v-model='todoText'
-                                label="할 일 작성하기"
-                                solo-inverted
-                        ></v-text-field>
-                        <a class="createTodoBtn" href="">등록하기</a>
-                    </v-flex>
-                </v-layout>
-            </v-container>
-        </v-form>
+        <form @submit.prevent="onSubmit">
+            <input type="text" v-model="todoText" name="todoText" placeholder="할 일 작성하기...  ">
+            <input type="submit" value="등록하기" class="btn">
+        </form>
     </div>
 </template>
 
 <script>
+
+    import {mapActions} from 'vuex';
+
     export default {
         name: "TodoInputWrapper",
         data: function () {
@@ -26,21 +18,50 @@
                 todoText: '',
             }
         },
-        methods: {},
+        methods: {
+
+            /** vuex helper function **/
+            ...mapActions(['createTodo']),
+
+            onSubmit(){
+                if (this.todoText.length === 0){
+                    return;
+                }
+
+                this.createTodo(this.todoText);
+
+                this.todoText = '';
+            }
+        },
 
     }
 </script>
 
 <style scoped>
-    a.createTodoBtn{
-        padding:14px 18px;
+
+    div.todoForm {
+        margin: 0 auto;
+        width: 600px;
+        /*border: 1px solid red;*/
+    }
+
+    form {
+        display: flex;
+    }
+
+    input[type="text"] {
+        flex: 10;
+        padding: 5px;
+        border:1px solid grey;
+    }
+
+    input[type="submit"] {
+        flex: 2;
         background: #333;
         color: #fff;
         text-align: center;
+        padding: 10px;
         font-family: Consolas;
-        font-size:15px;
-        text-decoration: none;
-        /*position: absolute;*/
-        /*right:0;*/
     }
+
 </style>

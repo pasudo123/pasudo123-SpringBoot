@@ -13,7 +13,7 @@
 <style scoped>
     div.SubHeader{
         text-align: center;
-        margin-top:10px;
+        margin:10px;
         padding: 10px;
         font-family: Consolas;
     }
