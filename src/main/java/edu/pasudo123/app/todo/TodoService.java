@@ -32,7 +32,7 @@ public class TodoService {
     List<ResponseTodoDto> findAll() {
 
         // 가장 최신 _TODO 가 맨 앞에 위치
-        List<Todo> todos = todoRepository.findAll();
+        List<Todo> todos = todoRepository.findAllByOrderByIdDesc();
 
         return modelMapperUtils.mapAll(todos, ResponseTodoDto.class);
     }
