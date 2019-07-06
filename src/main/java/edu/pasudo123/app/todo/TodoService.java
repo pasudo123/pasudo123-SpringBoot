@@ -17,7 +17,7 @@ public class TodoService {
     private final TodoRepository todoRepository;
 
     @Transactional
-    ResponseTodoDto createTodo(final RequestTodoDto dto){
+    ResponseTodoDto createTodo(final RequestTodoDto dto) {
 
         Todo todo = Todo.builder()
                 .content(dto.getContent())
@@ -29,15 +29,16 @@ public class TodoService {
     }
 
     @Transactional(readOnly = true)
-    List<ResponseTodoDto> findAll(){
+    List<ResponseTodoDto> findAll() {
 
-        List<Todo> todos = todoRepository.findAll();
+        // 가장 최신 _TODO 가 맨 앞에 위치
+        List<Todo> todos = todoRepository.findAllByOrderByIdDesc();
 
         return modelMapperUtils.mapAll(todos, ResponseTodoDto.class);
     }
 
     @Transactional
-    void updateTodo(final Long id, final RequestTodoDto dto){
+    void updateTodo(final Long id, final RequestTodoDto dto) {
 
         Todo foundTodo = todoRepository.findById(id).orElse(null);
         foundTodo.updateContent(dto.getContent());
@@ -47,7 +48,7 @@ public class TodoService {
     }
 
     @Transactional
-    void deleteById(final Long id){
+    void deleteById(final Long id) {
 
         todoRepository.deleteById(id);
     }
