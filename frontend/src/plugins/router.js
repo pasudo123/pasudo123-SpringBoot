@@ -1,4 +1,5 @@
 
+import Home from '../components/home/Home';
 import TodoMain from '../components/todo/TodoMain';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
@@ -14,8 +15,13 @@ export default new VueRouter({
 
     routes: [
         {
+            path: '/',
+            name: "home",
+            component: Home
+        },
+        {
             path: '/todo',
-                name: "todoMain",
+            name: "todoMain",
             component: TodoMain
         },
     ]

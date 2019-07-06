@@ -51,6 +51,9 @@ const actions = {
             .then((response) => {
                 context.commit('deleteTodo', id);
             })
+            .catch((error) => {
+               console.log(error);
+            });
 
     }
 };
