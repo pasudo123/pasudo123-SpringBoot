@@ -94,6 +94,7 @@ public class TodoControllerTest {
         MvcResult result = mockMvc.perform(get("/api/todos"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].content", is(responseTodoDto.getContent())))
+                .andDo(print())
                 .andReturn();
 
         log.debug(result.getResponse().getContentAsString());
