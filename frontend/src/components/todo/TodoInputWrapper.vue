@@ -39,11 +39,10 @@
 
 <style scoped>
 
-    div.todoForm {
-        margin: 0 auto;
-        width: 600px;
-        /*border: 1px solid red;*/
-    }
+    /*div.todoForm {*/
+        /*margin: 0 auto;*/
+        /*width: 600px;*/
+    /*}*/
 
     form {
         display: flex;
