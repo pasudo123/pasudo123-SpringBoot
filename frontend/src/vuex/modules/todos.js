@@ -11,6 +11,7 @@ const getters = {
 };
 
 const actions = {
+
     createTodo(context, payload) {
 
         const PAYLOAD = {content: payload};
@@ -40,6 +41,17 @@ const actions = {
             .catch((error) => {
                 console.log(error);
             });
+    },
+
+    deleteTodo(context, id){
+
+        console.debug("Delete TODO ID : ", id);
+
+        axios.delete("/api/todos/" + id)
+            .then((response) => {
+                context.commit('deleteTodo', id);
+            })
+
     }
 };
 
@@ -53,6 +65,11 @@ const mutations = {
     // _TODO 추가시 _TODO 목록 가장 앞 단에 추가 (unshift)
     addNewTodo(state, todo){
         state.todos.unshift(todo);
+    },
+
+    deleteTodo(state, id){
+        // filter() : Callback 함수로써, 새롭게 배열을 생성 (true 가 되는 모든 값들을 반환)
+        state.todos = state.todos.filter(todo => todo.id !== id);
     }
 
 };
