@@ -3,7 +3,7 @@
         <div    class="element"
                 v-for="todo in allTodos"
                 v-bind:key="todo.id">
-            <div class="todoDate">날짜 값 입력</div>
+            <div class="todoDate">{{dateFormat(todo.createDate)}}</div>
             {{todo.content}}
 
             <a class="deleteTodoBtn" @click="deleteTodo(todo.id)">삭제</a>
@@ -14,12 +14,17 @@
 <script>
 
     import {mapActions, mapGetters} from 'vuex';
-
+    import DateUtil from '../../utils/DateUtil'
 
     export default {
         name: "TodoElementWrapper",
         methods: {
             ...mapActions(['fetchTodos', 'deleteTodo']),
+
+            dateFormat(date){
+                return DateUtil.parseToyyyyMMdd_hhmmss(date);
+            }
+
         },
         computed: {
             ...mapGetters(['allTodos'])
