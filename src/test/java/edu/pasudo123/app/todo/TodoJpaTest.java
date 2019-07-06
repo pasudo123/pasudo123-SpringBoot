@@ -1,6 +1,7 @@
 package edu.pasudo123.app.todo;
 
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+import static org.hamcrest.Matchers.is;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -26,7 +28,7 @@ public class TodoJpaTest {
     private TodoRepository todoRepository;
 
     @Test
-    public void testCreateTodo(){
+    public void TODO_생성_테스트(){
 
         String content = "스프링 DATA JPA 공부하기";
 
@@ -46,7 +48,7 @@ public class TodoJpaTest {
     }
 
     @Test
-    public void testFindAllTodo(){
+    public void TODO_조회_테스트(){
 
         String content1 = "스프링 시큐리티 공부하기";
         Todo todo1 = Todo.builder().content(content1).build();
@@ -70,7 +72,29 @@ public class TodoJpaTest {
     }
 
     @Test
-    public void testUpdateTodo(){
+    public void TODO_ID_DESC_조회_테스트(){
+
+        Todo todo0 = Todo.builder().content("첫번째 Todo").build();
+        todoRepository.save(todo0);
+
+        Todo todo1 = Todo.builder().content("두번째 Todo").build();
+        todoRepository.save(todo1);
+
+        List<Todo> todos = todoRepository.findAllByOrderByIdDesc();
+
+        Assert.assertThat(todos.size(), is(2));
+        Assert.assertThat(todos.get(0).getContent(), is(todo1.getContent()));
+        Assert.assertThat(todos.get(1).getContent(), is(todo0.getContent()));
+
+        for(Todo todo : todos){
+            log.debug("==========================");
+            log.debug("TODO ID : {}", todo.getId());
+            log.debug("TODO CONTENT : {}", todo.getContent());
+        }
+    }
+
+    @Test
+    public void TODO_업데이트_테스트(){
 
         /**
          * 레파지토리`s save() 시 영속성 컨텍스트에 해당 엔티티가 살아있다.
