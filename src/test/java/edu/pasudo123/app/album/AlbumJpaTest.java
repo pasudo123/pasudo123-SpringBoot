@@ -13,6 +13,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 import static org.hamcrest.Matchers.is;
@@ -32,14 +33,17 @@ public class AlbumJpaTest {
     @Autowired
     private TestEntityManager testEntityManager;
 
-    @Autowired private AlbumRepository albumRepository;
+    @Autowired
+    private AlbumRepository albumRepository;
 
-    @Autowired private AlbumPhotoRepository albumPhotoRepository;
+    @Autowired
+    private AlbumPhotoRepository albumPhotoRepository;
 
-    @Autowired private AlbumCommentRepository albumCommentRepository;
+    @Autowired
+    private AlbumCommentRepository albumCommentRepository;
 
     @Test
-    public void 앨범_작성_테스트(){
+    public void 앨범_작성_테스트() {
 
         Album album = Album.builder()
                 .content("영화보시고 댓글좀 달아주세요.")
@@ -59,34 +63,34 @@ public class AlbumJpaTest {
      */
 
     @Test
-    public void 엔티티매니저_앨범_작성_및_댓글_테스트(){
+    public void 엔티티매니저_앨범_작성_및_댓글_테스트() {
 
         Album album = Album.builder()
                 .content("백투더퓨처에 대한 사진첩")
                 .build();
 
         // insert 쿼리 호출
-        Album savedAlbum = testEntityManager.persist(album);
+        testEntityManager.persist(album);
         testEntityManager.flush();
-        testEntityManager.detach(savedAlbum);
+        testEntityManager.detach(album);
 
         AlbumComment albumComment = AlbumComment.builder()
                 .comment("첫번째 이야기")
                 .build();
 
         // select 쿼리 호출 (FetchType.LAZY, FetchType.EAGER 를 구분하면 내용값이 달라짐)
-        // FetchType.LAZY 는 필드값으로 가지는 컬렉션들에게도 영속성을 부여하기 때문이라고 추측
+        // FetchType.LAZY 는 필드값으로 가지는 컬렉션들에게도 영속성을 부여하기 때문이라고 [추측]
         Album foundAlbum = testEntityManager.find(Album.class, 1L);
 
         log.debug("== 첫번째 비교");
-        assertThat(savedAlbum.getContent(), is(foundAlbum.getContent()));
+        assertThat(album.getContent(), is(foundAlbum.getContent()));
 
         foundAlbum.addComment(albumComment);
 
         // setAlbum() 메소드 호출 시, albumComment 에 insert 쿼리 호출
         albumComment.setAlbum(foundAlbum);
 
-        AlbumComment savedAlbumComment = testEntityManager.persist(albumComment);
+        testEntityManager.persist(albumComment);
         testEntityManager.flush();
 
         log.debug("== 두번째 비교");
@@ -116,71 +120,72 @@ public class AlbumJpaTest {
         log.debug("== 댓글 : {}", albumComment.getComment());
 
         testEntityManager.detach(foundAlbum);
-        testEntityManager.detach(savedAlbumComment);
+        testEntityManager.detach(albumComment);
     }
 
     @Test
-    public void 앨범_작성_및_댓글테스트(){
-
-        /**
-         * log 의 디버깅 내용이 다르게 나온다.
-         */
+    public void 앨범_작성_및_댓글테스트() {
 
         Album album = Album.builder()
                 .content("백투더퓨처를 보고 댓글좀 달아주세요")
                 .build();
 
         // insert Album
-        Album savedAlbum = albumRepository.save(album);
-        albumRepository.flush();
+        albumRepository.save(album);
+
+        /** 영속성 컨텍스트에 저장시켰다가 분리 : 준영속 상태로 변경 **/
+        testEntityManager.clear();
 
         AlbumComment albumComment = AlbumComment.builder()
                 .comment("첫번재 댓글을 달았습니다.")
                 .build();
 
-        /**
-         * 특정 앨범에 댓글을 달았음
-         * (1) 앨범을 찾아, 찾은 앨범에 댓글을 추가.
-         * (2) 댓글 저장
-         * **/
-
         // select Album
-        Album foundAlbum = albumRepository.findById(savedAlbum.getId()).get();
-        albumRepository.flush();
+        Album foundAlbum = albumRepository.findById(album.getId()).get();
 
-        /** 양방향 매핑관계에서 양쪽 다 데이터 삽입 **/
         albumComment.setAlbum(foundAlbum);
+        foundAlbum.addComment(albumComment);
 
         // insert AlbumComment
-        AlbumComment savedAlbumComment = albumCommentRepository.save(albumComment);
-        albumCommentRepository.flush();
+        albumCommentRepository.save(albumComment);
+    }
 
-        foundAlbum.addComment(savedAlbumComment);
+    @Test
+    public void persistAndFindTest_1차_캐시_테스트(){
 
-        /**
-         * Repository 에 저장되기 이전에, Repository 에 저장되고 난 이후에
-         * 앨범의 내용을 비교한다.
-         */
-        assertThat(album.getContent(), is(albumComment.getAlbum().getContent()));
-        assertThat(savedAlbum.getContent(), is(albumComment.getAlbum().getContent()));
-        assertThat(album.getContent(), is(savedAlbumComment.getAlbum() .getContent()));
-        assertThat(savedAlbum.getContent(), is(savedAlbumComment.getAlbum() .getContent()));
+        Album album = Album.builder()
+                .content("콘택트 보고 댓글좀")
+                .build();
+
+        testEntityManager.persist(album);
 
         /**
-         * Repository 에 저장되기 이전에, Repository 에 저장되고 난 이후에
-         * 앨범의 댓글을 비교한다.
-         */
-        assertThat(album.getAlbumCommentList().get(0).getComment(), is(albumComment.getComment()));
-        assertThat(savedAlbum.getAlbumCommentList().get(0).getComment(), is(savedAlbumComment.getComment()));
+         * 해당 내용이 존재 또는 미존재 하냐에 따라서 select 쿼리가 결정된다.
+         * 왜냐하면 영속성 컨텍스트에 해당 엔티티의 내용이 존재여부가 쿼리 날리는 것이랑 연관이 있기 때문
+         * **/
+        testEntityManager.clear();
 
+        testEntityManager.find(Album.class, 1L);
+    }
 
-        log.debug("=== 로그 디버그 출력");
-        log.debug("사진첩 내용 : {}", foundAlbum.getContent());
+    @Test
+    public void persistAndFindAndFindTest_동일성_보장_테스트(){
 
-        List<AlbumComment> albumCommentList = foundAlbum.getAlbumCommentList();
-        log.debug("사진첩의 댓글 개수 : {}", albumCommentList.size());
-        for(AlbumComment comment : albumCommentList){
-            log.debug("사진첩 댓글 : {}", comment.getComment());
-        }
+        Album album = Album.builder()
+                .content("컨택트 보고 댓글좀")
+                .build();
+
+        testEntityManager.persist(album);
+        testEntityManager.clear();
+
+        /**
+         * find() 함수 두 번 호출
+         * 그러나, 쿼리는 한 번 날라감
+         * **/
+        Album foundAlbum1 = testEntityManager.find(Album.class, 1L);
+
+        Album foundAlbum2 = testEntityManager.find(Album.class, 1L);
+
+        assertThat(foundAlbum1, is(foundAlbum2));
     }
 }
