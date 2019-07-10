@@ -42,6 +42,6 @@ public class AlbumComment extends TimeEntity {
         }
 
         this.album = album;
-        this.album.addComment(this);
+        album.addComment(this);
     }
 }
