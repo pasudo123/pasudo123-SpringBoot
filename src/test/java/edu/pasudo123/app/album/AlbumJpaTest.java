@@ -188,4 +188,34 @@ public class AlbumJpaTest {
 
         assertThat(foundAlbum1, is(foundAlbum2));
     }
+
+    @Test
+    public void toString_테스트(){
+
+        Album album = Album.builder()
+                .content("올드보이 보고 댓글좀")
+                .build();
+
+        testEntityManager.persist(album);
+        testEntityManager.clear();
+
+        AlbumComment albumComment = AlbumComment.builder()
+                .comment("첫번재 댓글을 달았습니다.")
+                .build();
+
+        album.addComment(albumComment);
+        albumComment.setAlbum(album);
+
+        testEntityManager.persist(albumComment);
+
+        /**
+         * 양방향 관계에서 toString 에 대한 stackoverflow 발생 시,
+         * @ToString(exclude = {}") 사용
+         *  **/
+        log.debug(album.toString());
+        log.debug("해당 앨범에 댓글 개수 : {}", album.getAlbumCommentList().size());
+        log.debug("해당 앨범에 댓글 내용 : {}", album.getAlbumCommentList().get(0));
+    }
+
+
 }

@@ -1,10 +1,7 @@
 package edu.pasudo123.app.album.photo;
 
 import edu.pasudo123.app.album.Album;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -17,6 +14,7 @@ import javax.persistence.*;
 @Table(name = "ALBUM_PHOTO")
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Getter
+@ToString(exclude = {"album"})
 public class AlbumPhoto {
 
     @Id
@@ -26,7 +24,7 @@ public class AlbumPhoto {
     @Column(name = "PHOTO_URL")
     private String photoUrl;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ALBUM_ID")
     private Album album;
 

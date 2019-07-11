@@ -1,11 +1,10 @@
 package edu.pasudo123.app.album.comment;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import edu.pasudo123.app.album.Album;
 import edu.pasudo123.app.common.TimeEntity;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -18,6 +17,7 @@ import javax.persistence.*;
 @Table(name = "ALBUM_COMMENT")
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Getter
+@ToString(exclude = {"album"})
 public class AlbumComment extends TimeEntity {
 
     @Id

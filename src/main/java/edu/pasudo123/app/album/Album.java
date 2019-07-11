@@ -1,12 +1,11 @@
 package edu.pasudo123.app.album;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import edu.pasudo123.app.album.comment.AlbumComment;
 import edu.pasudo123.app.album.photo.AlbumPhoto;
 import edu.pasudo123.app.common.TimeEntity;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -21,6 +20,7 @@ import java.util.List;
 @Table(name = "ALBUM")
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Getter
+@ToString(exclude = {"albumPhotoList", "albumCommentList"})
 public class Album extends TimeEntity {
 
     @Id
@@ -30,7 +30,7 @@ public class Album extends TimeEntity {
     @Column(name = "CONTENT", nullable = false)
     private String content;
 
-    @OneToMany
+    @OneToMany(mappedBy = "album", fetch = FetchType.LAZY)
     private List<AlbumPhoto> albumPhotoList = new ArrayList<>();
 
     @OneToMany(mappedBy = "album", fetch = FetchType.LAZY)
