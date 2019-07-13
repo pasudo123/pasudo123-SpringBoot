@@ -27,7 +27,10 @@ public class Album extends TimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "CONTENT", nullable = false)
+    @Column(name = "TITLE")
+    private String title;
+
+    @Column(name = "CONTENT")
     private String content;
 
     @OneToMany(mappedBy = "album", fetch = FetchType.LAZY)
@@ -41,7 +44,8 @@ public class Album extends TimeEntity {
      * TODO (2) : 좋아요 등록
      */
     @Builder
-    public Album(String content){
+    public Album(String title, String content){
+        this.title = title;
         this.content = content;
     }
 
@@ -83,5 +87,13 @@ public class Album extends TimeEntity {
         }
 
         albumCommentList.remove(comment);
+    }
+
+    public void updateTitle(String title){
+        this.title = title;
+    }
+
+    public void updateContent(String content){
+        this.content = content;
     }
 }

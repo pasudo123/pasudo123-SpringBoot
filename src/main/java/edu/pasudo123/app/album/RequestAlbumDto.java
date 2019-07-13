@@ -20,8 +20,10 @@ import java.util.List;
 public class RequestAlbumDto {
 
     private Long id;
+    private String title;
     private String content;
     private List<AlbumComment> albumCommentList;
     private List<AlbumPhoto> albumPhotoList;
+
 
 }
