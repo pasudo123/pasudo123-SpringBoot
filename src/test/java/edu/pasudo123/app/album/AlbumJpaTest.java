@@ -216,6 +216,4 @@ public class AlbumJpaTest {
         log.debug("해당 앨범에 댓글 개수 : {}", album.getAlbumCommentList().size());
         log.debug("해당 앨범에 댓글 내용 : {}", album.getAlbumCommentList().get(0));
     }
-
-
 }
