@@ -6,7 +6,7 @@
             <div class="todoDate">{{dateFormat(todo.createDate)}}</div>
             {{todo.content}}
 
-            <a class="deleteTodoBtn" @click="deleteTodo(todo.id)">삭제</a>
+            <a class="deleteTodoBtn" @click="deleteTodo({todo: todo, id: todo.id})">삭제</a>
         </div>
     </div>
 </template>
@@ -61,7 +61,6 @@
         position:absolute;
         right:15px;
         text-decoration: none;
-        font-family: Consolas;
         cursor: pointer;
     }
 

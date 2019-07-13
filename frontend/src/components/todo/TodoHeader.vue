@@ -15,6 +15,5 @@
         text-align: center;
         margin:10px;
         padding: 10px;
-        font-family: Consolas;
     }
 </style>
