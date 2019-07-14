@@ -25,5 +25,4 @@ public class RequestAlbumDto {
     private List<AlbumComment> albumCommentList;
     private List<AlbumPhoto> albumPhotoList;
 
-
 }

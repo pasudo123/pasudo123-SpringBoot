@@ -32,8 +32,7 @@ public class AlbumService {
 
         Album savedAlbum = albumRepository.save(album);
 
-        ResponseAlbumDto dto = modelMapperUtils.map(savedAlbum, ResponseAlbumDto.class);
-        return dto;
+        return modelMapperUtils.map(savedAlbum, ResponseAlbumDto.class);
     }
 
     @Transactional(readOnly = true)
