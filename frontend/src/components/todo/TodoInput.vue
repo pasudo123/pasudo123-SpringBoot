@@ -1,7 +1,7 @@
 <template>
     <div class="todoForm">
         <form @submit.prevent="onSubmit">
-            <input type="text" v-model="todoText" name="todoText" placeholder="할 일 작성하기...  ">
+            <input type="text" v-model="todoText" name="todoText" placeholder="할 일 작성하기...  " autofocus>
             <input type="submit" value="등록하기" class="btn">
         </form>
     </div>
@@ -60,7 +60,7 @@
         color: #fff;
         text-align: center;
         padding: 10px;
-        font-family: Consolas;
+        font-family: Consolas,serif;
     }
 
 </style>

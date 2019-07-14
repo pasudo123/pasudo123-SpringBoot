@@ -14,7 +14,7 @@
                         <v-layout row wrap>
                             <v-flex>
                                 <v-text-field
-                                        v-model="titleContent"
+                                        v-model="content.title"
                                         placeholder="제목을 작성해주세요"
                                 ></v-text-field>
                             </v-flex>
@@ -23,7 +23,7 @@
                 </v-form>
 
                 <VueTrix
-                        v-model="editorContent"
+                        v-model="content.editorContent"
                         placeholder="글을 작성해주세요"/>
             </div>
 
@@ -56,7 +56,7 @@
 <script>
 
     import VueTrix from 'vue-trix';
-    import {mapGetters, mapMutations} from 'vuex';
+    import {mapGetters, mapMutations, mapActions} from 'vuex';
     import Modal from './Modal';
 
     export default {
@@ -64,12 +64,10 @@
         components: {Modal, VueTrix},
         data() {
             return {
-                titleContent: '',
-                editorContent: '',
+                content: {},
                 tile: false,
                 image: '',
                 firebasePayload: {},
-                writeDate: '',
             }
         },
         computed: {
@@ -77,6 +75,7 @@
         },
         methods: {
             ...mapMutations(['hideModal']),
+            ...mapActions(['firebaseStorageSubmit', 'createAlbum']),
 
             onFileSelected(event) {
 
@@ -100,28 +99,29 @@
 
             submit() {
 
-                const firebase = require('firebase/app');
-                require('firebase/storage');
+                const fbProcess = this.firebaseStorageSubmit(this.firebasePayload);
+                const payload = {
+                    title: this.content.title,
+                    content: this.content.editorContent,
+                    // 이미지 관련 내용
+                };
 
-                const storage = firebase.storage();
-                const storageRef = storage.ref();
+                fbProcess.then(() => {
 
-                const name = this.firebasePayload.imageBlob.name;
-                const blob = this.firebasePayload.imageBlob;
+                }).catch(() => {
 
-                const uploadTask = storageRef.child("image/" + name);
-                const metadata = {contentType: this.image.type};
-
-                uploadTask.put(blob, metadata).then((snapshot) => {
-                    console.debug("== SnapShot ==");
-                    console.debug(snapshot);
+                }).then(() => {
+                    this.createAlbum(payload).then(() => {
+                        this.init();
+                    });
                 });
+            },
 
-                this.hideModal();
-
-                /** init **/
+            init() {
+                this.content = {};
                 this.image = '';
                 this.firebasePayload = {};
+                this.hideModal();
             }
         },
     }
@@ -136,15 +136,15 @@
         text-align: right;
     }
 
-    .v-form > .container > .layout > .flex{
+    .v-form > .container > .layout > .flex {
         padding: 0px;
     }
 
-    .footerWrapper{
+    .footerWrapper {
         text-align: center;
     }
 
-    .footerWrapper .submitBtn, .closeBtn{
+    .footerWrapper .submitBtn, .closeBtn {
         padding: 6px 15px;
         border-radius: 10px;
         background-color: #2e5b8b;
@@ -154,7 +154,7 @@
         margin-right: 5px;
     }
 
-    .footerWrapper .submitBtn:hover, .closeBtn:hover{
+    .footerWrapper .submitBtn:hover, .closeBtn:hover {
         background-color: #2f3b8b;
         box-shadow: 1px 1px 1px 1px #c2cccd;
     }

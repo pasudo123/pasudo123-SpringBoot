@@ -1,20 +1,20 @@
 <template>
     <div>
         <TodoHeader></TodoHeader>
-        <TodoInputWrapper></TodoInputWrapper>
-        <TodoElementWrapper></TodoElementWrapper>
+        <TodoInput></TodoInput>
+        <TodoElement></TodoElement>
     </div>
 </template>
 
 <script>
 
     import TodoHeader from './TodoHeader';
-    import TodoElementWrapper from './TodoElementWrapper';
-    import TodoInputWrapper from './TodoInputWrapper';
+    import TodoElement from './TodoElement';
+    import TodoInput from './TodoInput';
 
     export default {
         name: "todoMain",
-        components:{TodoHeader, TodoElementWrapper, TodoInputWrapper}
+        components:{TodoHeader, TodoElement, TodoInput}
     }
 </script>
 
