@@ -6,7 +6,7 @@
             <div class="todoDate">{{dateFormat(todo.createDate)}}</div>
             {{todo.content}}
 
-            <a class="deleteTodoBtn" @click="deleteTodo(todo.id)">삭제</a>
+            <a class="deleteTodoBtn" @click="deleteTodo({todo: todo, id: todo.id})">삭제</a>
         </div>
     </div>
 </template>
@@ -18,6 +18,9 @@
 
     export default {
         name: "TodoElementWrapper",
+        computed: {
+            ...mapGetters(['allTodos'])
+        },
         methods: {
             ...mapActions(['fetchTodos', 'deleteTodo']),
 
@@ -26,9 +29,6 @@
             }
 
         },
-        computed: {
-            ...mapGetters(['allTodos'])
-        },
         created() {
             this.fetchTodos();
         }
@@ -36,11 +36,6 @@
 </script>
 
 <style scoped>
-
-    /*div.elementWrapper{*/
-        /*margin:0 auto;*/
-        /*width: 600px;*/
-    /*}*/
 
     div.todoDate{
         margin-bottom:5px;
@@ -61,7 +56,6 @@
         position:absolute;
         right:15px;
         text-decoration: none;
-        font-family: Consolas;
         cursor: pointer;
     }
 

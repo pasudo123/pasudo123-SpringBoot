@@ -1,5 +1,5 @@
 <template>
-    <div id="PaMain">
+    <div class="PaMain">
         <PaHeader></PaHeader>
 
         <!-- 라우터가 컴포넌트를 그려주기 위한 부분 -->
@@ -18,14 +18,11 @@
     }
 </script>
 
-<style scoped>
+<style>
     * {
         box-sizing: border-box;
-        margin: 0;
+        margin: 0 auto;
         padding: 0;
-    }
-    body {
-        font-family: Arial, Helvetica, sans-serif;
-        line-height: 1.4;
+        font-family: Consolas;
     }
 </style>
