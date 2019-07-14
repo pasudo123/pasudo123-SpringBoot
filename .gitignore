@@ -162,6 +162,7 @@ test/
 ### Vuejs ###
 # Recommended template: Node.gitignore
 
+src/properties
 node_modules/
 dist/
 npm-debug.log

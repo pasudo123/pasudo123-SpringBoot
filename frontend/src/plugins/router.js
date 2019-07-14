@@ -1,6 +1,7 @@
 
 import Home from '../components/home/Home';
 import TodoMain from '../components/todo/TodoMain';
+import AlbumMain from '../components/album/AlbumMain';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
@@ -17,12 +18,17 @@ export default new VueRouter({
         {
             path: '/',
             name: "home",
-            component: Home
+            component: Home,
         },
         {
             path: '/todo',
             name: "todoMain",
             component: TodoMain
         },
+        {
+            path: '/album',
+            name: 'album',
+            component: AlbumMain
+        }
     ]
 });
