@@ -3,27 +3,33 @@
         <h1>Album</h1>
         <button class="uploadAlbumBtn" @click="showModal">사진첩 등록</button>
         <AlbumModal></AlbumModal>
-        <div v-for="index in 10">
+        <div v-for="index in 3">
             <AlbumElement></AlbumElement>
         </div>
+        <AlbumPagination></AlbumPagination>
     </div>
 </template>
 
 <script>
 
-    import {mapMutations} from 'vuex';
+    import {mapActions, mapMutations} from 'vuex';
     import AlbumModal from '../album/AlbumModal';
-    import AlbumElement from "./AlbumElement";
+    import AlbumElement from './AlbumElement';
+    import AlbumPagination from './AlbumPagination';
 
     export default {
         name: "AlbumMain",
-        components: {AlbumElement, AlbumModal},
+        components: {AlbumPagination, AlbumElement, AlbumModal},
         data() {
             return {
             }
         },
         methods: {
             ...mapMutations(['showModal']),
+            ...mapActions(['fetchAllAlbumList']),
+        },
+        created(){
+            this.fetchAllAlbumList();
         }
     }
 </script>

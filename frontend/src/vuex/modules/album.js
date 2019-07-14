@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const state = {
     showModal: false,
+    albumList: [],
 };
 
 const actions = {
@@ -55,6 +56,19 @@ const actions = {
             }).catch((error) => {
             console.debug(error);
         })
+    },
+
+    fetchAllAlbumList(context){
+
+        console.debug("앨범 목록 전체 조회");
+
+        axios.get("/api/album").then((response) => {
+            console.debug(response);
+            context.commit('setAlbumList', response.data);
+        }).catch((error) => {
+            console.debug(error);
+        });
+
     }
 
 };
@@ -71,6 +85,10 @@ const mutations = {
 
     hideModal(state) {
         state.showModal = false;
+    },
+
+    setAlbumList(state, albumList){
+        state.albumList = albumList;
     }
 
 };
