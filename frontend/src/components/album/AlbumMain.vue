@@ -3,6 +3,7 @@
         <h1>Album</h1>
         <button class="uploadAlbumBtn" @click="showModal">사진첩 등록</button>
         <AlbumModal></AlbumModal>
+        <AlbumElement></AlbumElement>
     </div>
 </template>
 
@@ -10,10 +11,11 @@
 
     import {mapMutations} from 'vuex';
     import AlbumModal from '../album/AlbumModal';
+    import AlbumElement from "./AlbumElement";
 
     export default {
         name: "AlbumMain",
-        components: {AlbumModal},
+        components: {AlbumElement, AlbumModal},
         data() {
             return {
             }
