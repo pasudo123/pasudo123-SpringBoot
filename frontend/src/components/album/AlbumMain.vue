@@ -3,7 +3,9 @@
         <h1>Album</h1>
         <button class="uploadAlbumBtn" @click="showModal">사진첩 등록</button>
         <AlbumModal></AlbumModal>
-        <AlbumElement></AlbumElement>
+        <div v-for="index in 10">
+            <AlbumElement></AlbumElement>
+        </div>
     </div>
 </template>
 
