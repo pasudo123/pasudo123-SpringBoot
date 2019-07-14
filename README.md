@@ -27,6 +27,7 @@ vue add vuetify
 ### 할 일
 - [ ] Album Enroll Layout
 - [ ] Album Enroll (Comment, Picture)
+- [ ] Album Page navigation
 
 ### 참고들
-- [앵귤러 상 올바른 커밋 메시지 작성 방법] (https://github.com/angular/angular/blob/master/CONTRIBUTING.md#-commit-message-guidelines)
+- [앵귤러 상 올바른 커밋 메시지 작성 방법](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#-commit-message-guidelines)
