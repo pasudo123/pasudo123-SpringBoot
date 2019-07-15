@@ -29,5 +29,11 @@ vue add vuetify
 - [ ] Album Enroll (Comment, Picture)
 - [ ] Album Page navigation
 
+### 프로젝트를 하면서 배운 것들 나열(진짜 나열)
+- form 태그 내에 input type = text 존재 시, Enter 키를 누르면 자동으로 submit() 이 작동한다. 여러 개의 인풋 타입 텍스트에도 동일하게 동작하는 것을 확인
+- vuex 에는 helper function 이라는 유용한 함수가 존재
+  1. three dots operator 가 존재 [link](https://dev.to/sagar/three-dots---in-javascript-26ci)
+
 ### 참고들
 - [앵귤러 상 올바른 커밋 메시지 작성 방법](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#-commit-message-guidelines)
+
