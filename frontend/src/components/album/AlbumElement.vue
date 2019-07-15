@@ -2,7 +2,7 @@
     <div class="elementWrapper">
         <v-layout>
             <v-flex>
-                <v-card>
+                <v-card v-for="album in allAlbum">
                     <v-container fill-height fluid>
                         <v-layout fill-height>
                             <v-flex xs12 align-end flexbox>
@@ -50,8 +50,13 @@
 
 <script>
 
+    import {mapGetters} from 'vuex';
+
     export default {
         name: "AlbumElement",
+        computed: {
+            ...mapGetters(['allAlbum']),
+        },
         data() {
             return {
                 image: "https://avatars1.githubusercontent.com/u/17797352?s=400&u=d8373790d3ea5b4ac35323b0effd1171c2a14a3d&v=4",

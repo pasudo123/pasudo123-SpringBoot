@@ -9,12 +9,15 @@ const actions = {
 
     firebaseStorageSubmit(context, payload) {
 
-        console.debug("파이어베이스 스토리지 저장 메소드 호출");
+        console.debug("firebase storage save() 호출");
 
         /** 비어있는 오브젝트 판단 **/
         if (Object.keys(payload).length === 0) {
+            console.debug("empty picture");
             return;
         }
+
+        console.debug("not empty picture");
 
         const firebase = require('firebase/app');
         require('firebase/storage');
@@ -63,7 +66,6 @@ const actions = {
         console.debug("앨범 목록 전체 조회");
 
         axios.get("/api/album").then((response) => {
-            console.debug(response);
             context.commit('setAlbumList', response.data);
         }).catch((error) => {
             console.debug(error);
@@ -74,7 +76,8 @@ const actions = {
 };
 
 const getters = {
-    isModalShow: state => state.showModal
+    isModalShow: state => state.showModal,
+    allAlbum: state => state.albumList
 };
 
 const mutations = {
