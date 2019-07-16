@@ -38,6 +38,15 @@ public class AlbumController {
         return new ResponseEntity<>(responseAlbumDtoList, HttpStatus.OK);
     }
 
+    @GetMapping("/album/{id}")
+    public ResponseEntity<ResponseAlbumDto> findById(@PathVariable Long id) throws ResourceNotFoundException{
+
+        ResponseAlbumDto responseAlbumDto = albumService.findById(id);
+
+        return new ResponseEntity<>(responseAlbumDto, HttpStatus.OK);
+    }
+
+
     @PatchMapping("/album/{id}")
     public void update(@RequestBody RequestAlbumDto requestAlbumDto,
                        @PathVariable Long id) throws ResourceNotFoundException {

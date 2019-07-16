@@ -100,9 +100,11 @@
             submit() {
 
                 const fbProcess = this.firebaseStorageSubmit(this.firebasePayload);
+                let content = this.convertH1ToH3Tag(this.content.editorContent);
+
                 const payload = {
                     title: this.content.title,
-                    content: this.content.editorContent,
+                    content: content,
                     // 이미지 관련 내용
                 };
 
@@ -115,6 +117,13 @@
                         this.init();
                     });
                 });
+            },
+
+            convertH1ToH3Tag(content) {
+                // 에디터에 글자 굵기 h1 로 되는 것 h3 태그로 변경
+                content = content.replace("<h1>", "<h3>");
+                content = content.replace("</h1>", "</h3>");
+                return content;
             },
 
             init() {

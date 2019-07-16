@@ -2,7 +2,9 @@ import axios from 'axios';
 
 const state = {
     showModal: false,
+    showCompleteModal: false,
     albumList: [],
+    album: '',
 };
 
 const actions = {
@@ -51,22 +53,31 @@ const actions = {
         };
 
         console.debug("앨범 추가 메소드 호출");
-        console.debug("payload : ", PAYLOAD);
 
-        axios.post("/api/album", PAYLOAD)
-            .then((response) => {
-                console.debug(response);
-            }).catch((error) => {
+        axios.post("/api/album", PAYLOAD).then((response) => {
+            context.commit('addNewAlbum', response.data);
+        }).catch((error) => {
             console.debug(error);
         })
     },
 
-    fetchAllAlbumList(context){
+    fetchAllAlbumList(context) {
 
         console.debug("앨범 목록 전체 조회");
 
         axios.get("/api/album").then((response) => {
             context.commit('setAlbumList', response.data);
+        }).catch((error) => {
+            console.debug(error);
+        });
+    },
+
+    fetchAlbum(context, albumId){
+
+        console.debug('특정 앨범 조회 : ', albumId);
+
+        axios.get("/api/album/" + albumId).then((response) => {
+            context.commit('setAlbum', response.data);
         }).catch((error) => {
             console.debug(error);
         });
@@ -77,7 +88,8 @@ const actions = {
 
 const getters = {
     isModalShow: state => state.showModal,
-    allAlbum: state => state.albumList
+    allAlbum: state => state.albumList,
+    getAlbum: state => state.album,
 };
 
 const mutations = {
@@ -90,8 +102,16 @@ const mutations = {
         state.showModal = false;
     },
 
-    setAlbumList(state, albumList){
+    setAlbumList(state, albumList) {
         state.albumList = albumList;
+    },
+
+    addNewAlbum(state, album) {
+        state.albumList.unshift(album);
+    },
+
+    setAlbum(state, album){
+        state.album = album;
     }
 
 };

@@ -18,7 +18,7 @@ firebase.initializeApp(firebaseConfig);
 
 import './plugins/vuetify'
 import './plugins/axios'
-import store from './vuex/store'
+import store from './store/store'
 import router from './plugins/router'
 import Vue from 'vue'
 import PaMain from './components/PaMain'

@@ -2,22 +2,23 @@
     <div class="elementWrapper">
         <v-layout>
             <v-flex>
-                <v-card v-for="album in allAlbum">
+                <v-card class="cardElement" v-for="album in allAlbum" :key="album.id">
                     <v-container fill-height fluid>
                         <v-layout fill-height>
                             <v-flex xs12 align-end flexbox>
-                                <span class="headline">앨범의 제목</span>
+                                <div class="headline">{{album.title}}</div>
                             </v-flex>
                         </v-layout>
                     </v-container>
 
-                    <v-img
-                            class="white--text"
-                            width="100%"
-                            height="150px"
-                            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-                    >
-                    </v-img>
+                    <div class="imageWrapper">
+                        <v-img
+                                width="100%"
+                                height="180px"
+                                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+                        >
+                        </v-img>
+                    </div>
 
                     <v-card-title>
                         <div class="writer">
@@ -31,16 +32,15 @@
                         <div class="content">
                             <div class="grey--text">
                                 <span>홍길동</span><br>
-                                <span>2019년 7월 14일 오후 8시</span>
+                                <span>{{dateFormat(album.createDate)}}</span>
                             </div>
-                            <div class="albumText"><span>절반의 내용1절반의 내용1절반의 내용1절반의 내용1절반의 내용1절반의 내용1</span><br><span>절반의 내용2절반의 내용2절반의 내용2절반의 내용2절반의 내용2절반의 내용2</span>
-                            </div>
+                            <div class="albumText" v-html="album.content"></div>
                         </div>
                     </v-card-title>
 
                     <v-card-actions>
-                        <v-btn flat color="orange">하트표시</v-btn>
-                        <v-btn flat color="orange">댓글보기</v-btn>
+                        <v-btn flat color="orange">하트</v-btn>
+                        <v-btn flat color="orange" @click="goAlbumPost(album.id)">내용보기</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-flex>
@@ -50,7 +50,8 @@
 
 <script>
 
-    import {mapGetters} from 'vuex';
+    import {mapGetters, mapMutations} from 'vuex';
+    import DateUtil from '../../utils/DateUtil';
 
     export default {
         name: "AlbumElement",
@@ -62,11 +63,34 @@
                 image: "https://avatars1.githubusercontent.com/u/17797352?s=400&u=d8373790d3ea5b4ac35323b0effd1171c2a14a3d&v=4",
             }
         },
-        methods: {},
+        methods: {
+            ...mapMutations(['showCompleteModal']),
+
+            dateFormat(date){
+                return DateUtil.parseToyyyyMMdd_hhmmss(date);
+            },
+
+            goAlbumPost(albumId){
+                console.debug(">>>");
+                const path = 'album/' + albumId;
+                this.$router.push({path:path});
+            }
+
+        },
+        created(){
+
+        }
     }
 </script>
 
 <style scoped>
+
+    div.headline{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
     div.v-card {
         margin-top: 30px;
         width: 550px;
@@ -82,16 +106,28 @@
         width: 300px;
         margin-left: 10px;
         flex-grow: 3;
-        /*border:1px solid red;*/
     }
 
     div.albumText {
         white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        height: 50px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        border-top: 1px solid darkslategrey;
+        border-bottom: 1px solid darkslategrey;
     }
 
     div.grey--text {
         padding-bottom: 10px;
     }
+
+    div.imageWrapper:hover{
+        cursor: pointer;
+        box-shadow: 2px 2px 5px 1px #c2cccd;
+    }
+
+    div.v-avatar{
+        cursor:pointer;
+    }
+
 </style>

@@ -14,7 +14,7 @@
 <script>
 
     import {mapActions, mapGetters} from 'vuex';
-    import DateUtil from '../../utils/DateUtil'
+    import DateUtil from '../../utils/DateUtil';
 
     export default {
         name: "TodoElementWrapper",

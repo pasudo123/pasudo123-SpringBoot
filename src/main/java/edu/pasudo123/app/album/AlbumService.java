@@ -43,6 +43,15 @@ public class AlbumService {
         return modelMapperUtils.mapAll(albumList, ResponseAlbumDto.class);
     }
 
+    @Transactional(readOnly = true)
+    ResponseAlbumDto findById(Long id) throws ResourceNotFoundException {
+
+        Album album = albumRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("조회할 앨범이 존재하지 않습니다"));
+
+        return modelMapperUtils.map(album, ResponseAlbumDto.class);
+    }
+
     @Transactional
     void update(final Long id, final RequestAlbumDto requestAlbumDto) throws ResourceNotFoundException {
 

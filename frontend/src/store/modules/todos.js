@@ -37,7 +37,7 @@ const actions = {
                 context.commit('setTodos', todos);
             })
             .catch((error) => {
-                console.log(error);
+                console.debug(error);
             });
     },
 

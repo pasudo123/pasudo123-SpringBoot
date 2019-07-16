@@ -2,6 +2,7 @@
 import Home from '../components/home/Home';
 import TodoMain from '../components/todo/TodoMain';
 import AlbumMain from '../components/album/AlbumMain';
+import AlbumPost from '../components/album/AlbumPost';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
@@ -29,6 +30,11 @@ export default new VueRouter({
             path: '/album',
             name: 'album',
             component: AlbumMain
+        },
+        {
+            path: '/album/:id',
+            name: 'albumPost',
+            component: AlbumPost
         }
     ]
 });
