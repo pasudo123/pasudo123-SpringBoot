@@ -6,6 +6,7 @@ import edu.pasudo123.app.album.photo.AlbumPhoto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,14 +19,11 @@ import java.util.List;
  */
 @Getter
 @Setter
-@ToString(exclude = {"albumCommentList", "albumPhotoList"})
 public class ResponseAlbumDto {
 
     private Long id;
     private String title;
     private String content;
-    private List<AlbumComment> albumCommentList;
-    private List<AlbumPhoto> albumPhotoList;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createDate;
