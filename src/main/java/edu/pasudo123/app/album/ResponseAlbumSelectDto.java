@@ -6,28 +6,28 @@ import edu.pasudo123.app.album.photo.AlbumPhoto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * Created by pasudo123 on 2019-07-16
- * Blog: https://pasudo123.tistory.com/
- * Email: oraedoa@gmail.com
+ * @author pasudo123
+ * @since 2019-07-11
+ * blog: https://pasudo123.tistory.com/
+ * email: oraedoa@gmail.com
  *
- * 특정 앨범 조회 Dto Class
- * 해당 Dto 가 있으므로, album id 외래키를 이용하여 댓글과 사진을 들고온다.
- **/
+ * 앨범목록 Dto Class
+ * - 앨범의 목록만을 필요로 하기 때문에
+ * - 다른 필드는 딱히 필요없음
+ */
 @Getter
 @Setter
-@ToString(exclude = {"albumCommentList", "albumPhotoList"})
-public class ResponseAlbumPostDto {
+public class ResponseAlbumSelectDto {
 
     private Long id;
     private String title;
     private String content;
-    private List<AlbumPhoto> albumPhotoList;
-    private List<AlbumComment> albumCommentList;
 
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
