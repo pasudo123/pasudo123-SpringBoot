@@ -1,6 +1,6 @@
 
-import todos from './modules/todos';
-import album from './modules/album';
+import todosModule from './modules/todosModule';
+import albumModule from './modules/albumModule';
 
 import Vue from 'vue';
 import Vuex from 'vuex';
@@ -27,7 +27,7 @@ export default new Vuex.Store({
     },
 
     modules: {
-        todos,
-        album,
+        todosModule,
+        albumModule,
     }
 });
