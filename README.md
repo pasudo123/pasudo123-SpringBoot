@@ -29,5 +29,10 @@ vue add vuetify
 - [ ] Album Enroll (Comment, Picture)
 - [ ] Album Page navigation
 
+
+### 뭔가 익혔다고 생각하는데...
+- vue 에서 actions 호출시 commit 여러번 하니깐 전달인자 분해기법이 있음
+  - 말 그대로 인자를 분해하는 기법 actionModule(context, payload) === actionsModule({commit}, payload) 이렇게 간다.
+
 ### 참고들
 - [앵귤러 상 올바른 커밋 메시지 작성 방법](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#-commit-message-guidelines)
