@@ -2,7 +2,7 @@
     <div class="elementWrapper">
         <v-layout>
             <v-flex>
-                <v-card class="cardElement" v-for="album in allAlbum" :key="album.id">
+                <v-card class="cardElement" v-for="album in getAlbumList" :key="album.id">
                     <v-container fill-height fluid>
                         <v-layout fill-height>
                             <v-flex xs12 align-end flexbox>
@@ -56,7 +56,7 @@
     export default {
         name: "AlbumElement",
         computed: {
-            ...mapGetters(['allAlbum']),
+            ...mapGetters(['getAlbumList']),
         },
         data() {
             return {
@@ -67,11 +67,10 @@
             ...mapMutations(['showCompleteModal']),
 
             dateFormat(date){
-                return DateUtil.parseToyyyyMMdd_hhmmss(date);
+                return DateUtil.parseStringToyyyyMMdd_hhmmss(date);
             },
 
             goAlbumPost(albumId){
-                console.debug(">>>");
                 const path = 'album/' + albumId;
                 this.$router.push({path:path});
             }
