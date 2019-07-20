@@ -1,5 +1,6 @@
 package edu.pasudo123.app.album;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import edu.pasudo123.app.album.comment.AlbumComment;
@@ -36,6 +37,7 @@ public class Album extends TimeEntity {
     @OneToMany(mappedBy = "album", fetch = FetchType.LAZY)
     private List<AlbumPhoto> albumPhotoList = new ArrayList<>();
 
+    @JsonBackReference
     @OneToMany(mappedBy = "album", fetch = FetchType.LAZY)
     private List<AlbumComment> albumCommentList = new ArrayList<>();
 

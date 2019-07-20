@@ -1,5 +1,6 @@
 package edu.pasudo123.app.album;
 
+import edu.pasudo123.app.annotation.CustomApiRestController;
 import edu.pasudo123.app.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,8 +15,7 @@ import java.util.List;
  * Blog: https://pasudo123.tistory.com/
  * Email: oraedoa@gmail.com
  **/
-@RestController
-@RequestMapping("/api")
+@CustomApiRestController
 @Slf4j
 @RequiredArgsConstructor
 public class AlbumController {
@@ -23,27 +23,27 @@ public class AlbumController {
     private final AlbumService albumService;
 
     @PostMapping("/album")
-    public ResponseEntity<ResponseAlbumDto> createAlbum(@RequestBody RequestAlbumDto requestAlbumDto){
+    public ResponseEntity<ResponseAlbumSelectDto> createAlbum(@RequestBody RequestAlbumDto requestAlbumDto){
 
-        ResponseAlbumDto responseAlbumDto = albumService.createAlbum(requestAlbumDto);
+        ResponseAlbumSelectDto responseAlbumSelectDto = albumService.createAlbum(requestAlbumDto);
 
-        return new ResponseEntity<>(responseAlbumDto, HttpStatus.OK);
+        return new ResponseEntity<>(responseAlbumSelectDto, HttpStatus.OK);
     }
 
     @GetMapping("/album")
-    public ResponseEntity<List<ResponseAlbumDto>> findAll(){
+    public ResponseEntity<List<ResponseAlbumSelectDto>> findAll(){
 
-        List<ResponseAlbumDto> responseAlbumDtoList = albumService.findAll();
+        List<ResponseAlbumSelectDto> responseAlbumSelectDtoList = albumService.findAll();
 
-        return new ResponseEntity<>(responseAlbumDtoList, HttpStatus.OK);
+        return new ResponseEntity<>(responseAlbumSelectDtoList, HttpStatus.OK);
     }
 
     @GetMapping("/album/{id}")
-    public ResponseEntity<ResponseAlbumDto> findById(@PathVariable Long id) throws ResourceNotFoundException{
+    public ResponseEntity<ResponseAlbumPostDto> findById(@PathVariable Long id) throws ResourceNotFoundException{
 
-        ResponseAlbumDto responseAlbumDto = albumService.findById(id);
+        ResponseAlbumPostDto responseAlbumPostDto = albumService.findDtoById(id);
 
-        return new ResponseEntity<>(responseAlbumDto, HttpStatus.OK);
+        return new ResponseEntity<>(responseAlbumPostDto, HttpStatus.OK);
     }
 
 

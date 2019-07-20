@@ -2,6 +2,7 @@ package edu.pasudo123.app.todo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Slf4j
 public class TodoControllerTest {
 
-    @Autowired
     private ObjectMapper objectMapper;
 
     @Autowired
@@ -38,8 +38,14 @@ public class TodoControllerTest {
     @MockBean
     private TodoService todoService;
 
+    @Before
+    public void init(){
+        // 이 때는 Jackson Mapper 를 초기화 해주는게 맞지 않을까?
+        this.objectMapper = new ObjectMapper();
+    }
+
     @Test
-    public void Todo_등록_API_Test() throws Exception {
+    public void Todo_등록_API_테스트() throws Exception {
 
         RequestTodoDto requestTodoDto = new RequestTodoDto();
         requestTodoDto.setContent("테스트 코드 작성하기");
@@ -62,6 +68,7 @@ public class TodoControllerTest {
          *
          * [ Solution ]
          * - @EqualsAndHashCode 어노테이션을 RequestTodoDto 와 ResponseTodoDto 에 각각 붙이니 해결
+         * - (RequestTodoDto 에만 붙여도 값은 나옴)
          */
 
         // given

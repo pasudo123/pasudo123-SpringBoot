@@ -1,7 +1,7 @@
 
 const CUSTOM_DATE_UTIL = {
 
-    parseToyyyyMMdd_hhmmss(date){
+    parseObjectToyyyyMMdd_hhmmss(date){
 
         let dateString = String(date.year + "년 " + date.monthValue + "월 " + date.dayOfMonth + "일");
         let timeString = '';
@@ -19,8 +19,21 @@ const CUSTOM_DATE_UTIL = {
         return (dateString + " " + timeString);
     },
 
-    parseToyyyyMMdd(date){
-        return '';
+    parseStringToyyyyMMdd_hhmmss(date){
+
+        // 2019-07-17 22:52:10
+        let front = date.split(" ")[0];
+        let back = date.split(" ")[1];
+
+        let year = front.split("-")[0] + "년 ";
+        let month = front.split("-")[1] + "월 ";
+        let day = front.split("-")[2] + "일";
+
+        let hour = back.split(":")[0] + "시 ";
+        let minute = back.split(":")[1] + "분 ";
+        let second = back.split(":")[2] + "초";
+
+        return (year + month + day + " " + hour + minute + second);
     },
 
     parseTohhmmss(date){

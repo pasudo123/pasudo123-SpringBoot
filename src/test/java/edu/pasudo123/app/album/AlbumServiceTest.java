@@ -50,7 +50,7 @@ public class AlbumServiceTest {
          * savedAlbum 객체로 변환. DB 에 저장하였다 가정하고 다시 리턴된 상태를 만들어주기 위해서
          */
 
-        ResponseAlbumDto responseDto = new ResponseAlbumDto();
+        ResponseAlbumSelectDto responseDto = new ResponseAlbumSelectDto();
         responseDto.setId(1L);
         responseDto.setTitle("첫번째 사진첩");
         responseDto.setContent("첫번째 사진첩의 내용");
@@ -68,17 +68,17 @@ public class AlbumServiceTest {
         requestDto.setTitle("첫번쨰 사진첩");
         requestDto.setContent("첫번째 사진첩의 내용");
 
-        ResponseAlbumDto responseDto = new ResponseAlbumDto();
+        ResponseAlbumSelectDto responseDto = new ResponseAlbumSelectDto();
         responseDto.setId(1L);
         responseDto.setTitle("첫번째 사진첩");
         responseDto.setContent("첫번째 사진첩의 내용");
         responseDto.setCreateDate(LocalDateTime.now());
         responseDto.setUpdateDate(LocalDateTime.now());
 
-        given(modelMapperUtils.map(savedAlbum, ResponseAlbumDto.class)).willReturn(responseDto);
+        given(modelMapperUtils.map(savedAlbum, ResponseAlbumSelectDto.class)).willReturn(responseDto);
 
         /** when **/
-        ResponseAlbumDto createdAlbumDto = albumService.createAlbum(requestDto);
+        ResponseAlbumSelectDto createdAlbumDto = albumService.createAlbum(requestDto);
 
         /** then **/
         assertThat(createdAlbumDto.getTitle(), is(responseDto.getTitle()));

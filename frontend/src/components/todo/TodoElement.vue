@@ -25,7 +25,7 @@
             ...mapActions(['fetchTodos', 'deleteTodo']),
 
             dateFormat(date){
-                return DateUtil.parseToyyyyMMdd_hhmmss(date);
+                return DateUtil.parseStringToyyyyMMdd_hhmmss(date);
             }
 
         },
