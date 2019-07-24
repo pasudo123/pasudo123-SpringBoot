@@ -3,6 +3,13 @@ import axios from 'axios';
 const state = {
     showModal: false,
     showCompleteModal: false,
+    albumHeaders: [
+        {text: '번호', align: 'center', sortable: false, value: 'number'},
+        {text: '제목', align: 'center', sortable: false, value: 'title'},
+        {text: '작성자', align: 'center', sortable: false, value: 'writer'},
+        {text: '작성일', align: 'center', sortable: false, value: 'created'},
+        {text: '추천', align: 'center', sortable: false, value: 'like'}
+    ],
     albumList: [],
     album: {}
 };
@@ -102,6 +109,7 @@ const actions = {
 
 const getters = {
     isModalShow: state => state.showModal,
+    getAlbumHeaders: state => state.albumHeaders,
     getAlbumList: state => state.albumList,
     getAlbum: state => state.album,
 };

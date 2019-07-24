@@ -1,4 +1,5 @@
 <template>
+
     <Modal v-if="this.isModalShow" @close="this.hideModal">
 
         <div class="headerWrapper" slot="header">
@@ -57,7 +58,7 @@
 
     import VueTrix from 'vue-trix';
     import {mapGetters, mapMutations, mapActions} from 'vuex';
-    import Modal from './Modal';
+    import Modal from '../old_album/Modal';
 
     export default {
         name: "AlbumModal",

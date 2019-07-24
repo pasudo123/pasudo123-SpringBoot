@@ -71,7 +71,7 @@
             },
 
             goAlbumPost(albumId){
-                const path = 'album/' + albumId;
+                const path = `album/${albumId}`;
                 this.$router.push({path:path});
             }
 

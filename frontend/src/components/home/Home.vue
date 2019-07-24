@@ -1,11 +1,13 @@
 <template>
-    <div class="HomeWrapper">
-        <h1>Home</h1>
+    <div id="home">
+
         <div class="list"
              v-for="link in AllLinks"
              v-bind:key="link.id">
-            <a @click="convertView(link)">{{link.name}}</a>
+
+            <a class="linkBtn" @click="convertView(link)">{{link.name}}</a>
         </div>
+
     </div>
 </template>
 
@@ -19,7 +21,7 @@
         },
         methods: {
             setLink() {
-                let array = ["todo", "album"];
+                let array = ["Todo", "Album"];
 
                 for (let i = 0; i < array.length; i++) {
                     this.AllLinks.push({
@@ -29,8 +31,9 @@
                     });
                 }
             },
-            convertView(link){
-                this.$router.push({path: link.link})
+            convertView(link) {
+                let path = link.link.toLowerCase();
+                this.$router.push({path: path})
             }
         },
         created() {
@@ -40,14 +43,28 @@
 </script>
 
 <style scoped>
-    div.HomeWrapper {
+    div#home {
         margin-top: 20px;
         text-align: center;
     }
 
-    div.list{
-        margin-top: 5px;
-        margin-bottom: 5px;
+    div.list {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    a.linkBtn{
+        width:80px;
+        font-size: 16px;
+        display:inline-block;
+        color: black;
+        border-bottom: 1px solid transparent;
+    }
+
+    a.linkBtn:hover{
+        cursor: pointer;
+        color: red;
+        border-bottom: 1px solid red;
     }
 
 </style>
