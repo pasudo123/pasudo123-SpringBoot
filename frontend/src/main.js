@@ -1,16 +1,26 @@
 /** firebase 설정 **/
 import * as firebase from "firebase/app";
 import "firebase/storage";
-const fb = require('./properties/firebase-config');
+// const fb = require('./properties/firebase-config');
+
+// const firebaseConfig = {
+//     apiKey: fb.apiKey,
+//     authDomain: fb.authDomain,
+//     databaseURL: fb.databaseURL,
+//     projectId: fb.projectId,
+//     storageBucket: fb.storageBucket,
+//     messagingSenderId: fb.messagingSenderId,
+//     appId: fb.appId
+// };
 
 const firebaseConfig = {
-    apiKey: fb.apiKey,
-    authDomain: fb.authDomain,
-    databaseURL: fb.databaseURL,
-    projectId: fb.projectId,
-    storageBucket: fb.storageBucket,
-    messagingSenderId: fb.messagingSenderId,
-    appId: fb.appId
+    apiKey: '',
+    authDomain: '',
+    databaseURL: '',
+    projectId: '',
+    storageBucket: '',
+    messagingSenderId: '',
+    appId: ''
 };
 
 firebase.initializeApp(firebaseConfig);

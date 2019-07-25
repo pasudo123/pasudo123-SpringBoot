@@ -1,6 +1,6 @@
 <template>
     <div id="albumMain">
-        <DataTables></DataTables>
+        <AlbumDataTables></AlbumDataTables>
 
         <!--<router-view></router-view>-->
         <!--<button class="uploadAlbumBtn" @click="showModal">사진첩 등록</button>-->
@@ -12,23 +12,11 @@
 
 <script>
 
-    import DataTables from '@/components/common/DataTables'
-    import {mapActions, mapMutations} from 'vuex'
+    import AlbumDataTables from '@/components/album/AlbumDataTables'
 
     export default {
         name: "AlbumMain",
-        components: { DataTables },
-        data() {
-            return {
-            }
-        },
-        methods: {
-            ...mapMutations(['showModal']),
-            ...mapActions(['fetchAllAlbumList']),
-        },
-        created(){
-            this.fetchAllAlbumList();
-        }
+        components: { AlbumDataTables },
     }
 </script>
 

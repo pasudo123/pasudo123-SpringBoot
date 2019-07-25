@@ -4,11 +4,9 @@ const state = {
     showModal: false,
     showCompleteModal: false,
     albumHeaders: [
-        {text: '번호', align: 'center', sortable: false, value: 'number'},
+        {text: '번호', align: 'center', sortable: false, value: 'id'},
         {text: '제목', align: 'center', sortable: false, value: 'title'},
-        {text: '작성자', align: 'center', sortable: false, value: 'writer'},
-        {text: '작성일', align: 'center', sortable: false, value: 'created'},
-        {text: '추천', align: 'center', sortable: false, value: 'like'}
+        {text: '작성일', align: 'center', sortable: false, value: 'createDate'},
     ],
     albumList: [],
     album: {}
@@ -54,14 +52,9 @@ const actions = {
 
     createAlbum({commit}, payload) {
 
-        const PAYLOAD = {
-            title: payload.title,
-            content: payload.content
-        };
-
         console.debug("앨범 추가 메소드 호출");
 
-        axios.post("/api/album", PAYLOAD).then((response) => {
+        axios.post("/api/album", payload).then((response) => {
             commit('addNewAlbum', response.data);
         }).catch((error) => {
             console.debug(error);
@@ -92,7 +85,7 @@ const actions = {
     },
 
     createAlbumComment({commit}, param){
-    
+
         // 데이터 셋팅
         let payload = {
             comment: param.comment
@@ -109,9 +102,16 @@ const actions = {
 
 const getters = {
     isModalShow: state => state.showModal,
-    getAlbumHeaders: state => state.albumHeaders,
-    getAlbumList: state => state.albumList,
-    getAlbum: state => state.album,
+    albumHeaders: state => state.albumHeaders,
+    albumList: state => {
+        console.debug(state.albumList);
+        if(Object.keys(state.albumList).length === 0){
+            return [];
+        }
+
+        return state.albumList;
+    },
+    album: state => state.album,
 };
 
 const mutations = {

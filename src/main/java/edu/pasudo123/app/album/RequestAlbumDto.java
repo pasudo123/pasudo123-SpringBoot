@@ -1,14 +1,9 @@
 package edu.pasudo123.app.album;
 
-import edu.pasudo123.app.album.comment.AlbumComment;
-import edu.pasudo123.app.album.photo.AlbumPhoto;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
-import java.util.List;
 
 /**
  * @author pasudo123
@@ -17,7 +12,6 @@ import java.util.List;
  * email: oraedoa@gmail.com
  */
 @Getter
-@Setter
 @EqualsAndHashCode
 public class RequestAlbumDto {
 

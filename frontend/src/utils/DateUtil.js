@@ -1,5 +1,5 @@
 
-const CUSTOM_DATE_UTIL = {
+const utils = {
 
     parseObjectToyyyyMMdd_hhmmss(date){
 
@@ -42,4 +42,4 @@ const CUSTOM_DATE_UTIL = {
 
 };
 
-export default CUSTOM_DATE_UTIL
+export default utils

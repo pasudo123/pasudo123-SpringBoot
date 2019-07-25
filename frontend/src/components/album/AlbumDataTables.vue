@@ -1,6 +1,6 @@
 <template>
-    <div id="dataTables">
-        <div class="tableWrapper">
+    <div id="tableWrapper">
+        <v-app>
             <v-toolbar flat color="#c9d0e2">
                 <v-toolbar-title><span class="titleText">Album</span></v-toolbar-title>
                 <v-spacer></v-spacer>
@@ -11,58 +11,51 @@
             </v-toolbar>
 
             <v-data-table
-                    :headers="getAlbumHeaders"
-                    :items="albumPostList"
-                    class="elevation-1"
+                    :headers="albumHeaders"
+                    :items="albumList"
             >
                 <template v-slot:items="props">
-                    <td>{{ props.item.number }}</td>
+                    <td>{{ props.item.id }}</td>
                     <td>{{ props.item.title }}</td>
-                    <td>{{ props.item.writer }}</td>
-                    <td>{{ props.item.created }}</td>
-                    <td>{{ props.item.like }}</td>
+                    <td>{{ props.item.createDate }}</td>
                 </template>
 
                 <template v-slot:footer>
-                    <td :colspan="getAlbumHeaders.length">
+                    <td :colspan="albumHeaders.length">
                         <strong>푸터로 일단 뭐를 집어넣는게 좋을까...</strong>
                     </td>
                 </template>
             </v-data-table>
-        </div>
+        </v-app>
     </div>
 </template>
 
 <script>
 
+    import DateUtil from '@/utils/DateUtil'
     import AlbumModal from '@/components/album/AlbumModal'
-    import {mapGetters, mapMutations} from 'vuex'
+    import {mapActions, mapGetters, mapMutations} from 'vuex'
 
     export default {
         name: "DataTables",
         components: {AlbumModal},
         data() {
-            return {
-                albumPostList: [
-                    {
-                        number: '1',
-                        title: '앨범제목',
-                        writer: '작성자',
-                        created: '2019년 1월 1일',
-                        like: 10,
-                    }
-                ]
-            }
+            return {}
         },
         computed: {
-            ...mapGetters(['getAlbumHeaders']),
+            ...mapGetters(['albumHeaders', 'albumList']),
         },
         methods: {
+            ...mapActions(['fetchAllAlbumList']),
             ...mapMutations(['showModal']),
 
             write() {
                 this.$router.push({path: '/album/post'})
-            }
+            },
+
+        },
+        created() {
+            this.fetchAllAlbumList();
         }
     }
 </script>
@@ -77,7 +70,7 @@
         text-align: center;
     }
 
-    div.tableWrapper {
+    div#tableWrapper {
         margin-top: 20px;
         width: 960px;
     }
