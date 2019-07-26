@@ -52,18 +52,21 @@ const actions = {
 
     createAlbum({commit}, payload) {
 
-        console.debug("앨범 추가 메소드 호출");
+        console.debug("[actions] createAlbum");
 
-        axios.post("/api/album", payload).then((response) => {
-            commit('addNewAlbum', response.data);
-        }).catch((error) => {
-            console.debug(error);
-        })
+        return new Promise((resolve, reject) => {
+            axios.post("/api/album", payload).then((response) => {
+                commit('addNewAlbum', response.data);
+                resolve();
+            }).catch((error) => {
+                console.debug(error);
+            })
+        });
     },
 
     fetchAllAlbumList({commit}) {
 
-        console.debug("앨범 목록 전체 조회");
+        console.debug("[actions] fetchAllAlbumList");
 
         axios.get("/api/album").then((response) => {
             commit('setAlbumList', response.data);
@@ -104,13 +107,13 @@ const getters = {
     isModalShow: state => state.showModal,
     albumHeaders: state => state.albumHeaders,
     albumList: state => {
-        console.debug(state.albumList);
         if(Object.keys(state.albumList).length === 0){
             return [];
         }
 
         return state.albumList;
     },
+
     album: state => state.album,
 };
 

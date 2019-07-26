@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
  * 해당 객체를 빈으로 등록시킨다. @Configuration 과 @Bean 은 같이 쓰인다.
  */
 @Configuration
-public class MapperConfig {
+public class ModelMapperConfig {
 
     @Bean
     public ModelMapper modelMapper(){

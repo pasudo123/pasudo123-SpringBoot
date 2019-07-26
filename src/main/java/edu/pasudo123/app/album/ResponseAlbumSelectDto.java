@@ -1,15 +1,11 @@
 package edu.pasudo123.app.album;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import edu.pasudo123.app.album.comment.AlbumComment;
-import edu.pasudo123.app.album.photo.AlbumPhoto;
+import edu.pasudo123.app.common.TimeEntity;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * @author pasudo123
@@ -23,13 +19,16 @@ import java.util.List;
  */
 @Getter
 @Setter
-public class ResponseAlbumSelectDto {
+public class ResponseAlbumSelectDto{
 
     private Long id;
     private String title;
     private String content;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createDate;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime updateDate;
 
 }

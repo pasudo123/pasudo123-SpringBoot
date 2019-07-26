@@ -21,7 +21,7 @@
         color: #fff;
         text-align: center;
         padding: 15px;
-        font-family: Consolas;
+        font-family: "Microsoft Himalaya";
     }
 
     div.nav{

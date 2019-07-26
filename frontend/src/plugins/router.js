@@ -3,11 +3,11 @@ import PaMain from '@/components/PaMain'
 import Home from '@/components/home/Home'
 import About from '@/components/home/about'
 import TodoMain from '@/components/todo/TodoMain'
-import AlbumMain from '@/components/album/AlbumMain'
 import AlbumPost from '@/components/album/AlbumPost'
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import AlbumDataTables from "../components/album/AlbumDataTables";
 
 Vue.use(VueRouter);
 
@@ -43,7 +43,7 @@ export default new VueRouter({
                 {
                     path: 'album',
                     name: 'AlbumMain',
-                    component: AlbumMain
+                    component: AlbumDataTables
                 },
                 {
                     path: 'album/post',

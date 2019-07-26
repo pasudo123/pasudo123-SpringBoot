@@ -1,6 +1,6 @@
 <template>
     <div id="albumPost">
-        <v-form>
+        <v-form @submit.prevent="{submit, cancel}">
             <v-container>
                 <v-layout>
                     <v-flex>
@@ -10,6 +10,7 @@
                             </div>
 
                             <v-text-field
+                                    @keypress.enter.prevent
                                     v-model="albumPost.title"
                                     label="제목"
                             ></v-text-field>
@@ -19,8 +20,8 @@
                                     placeholder="내용 작성"/>
 
                             <div class="buttonWrapper">
-                                <button @click="cancel" class="customButton">취소</button>
-                                <button @click="submit" class="customButton">작성</button>
+                                <button @click="cancel()" class="customButton">취소</button>
+                                <button @click="submit()" class="customButton">작성</button>
                             </div>
                         </div>
                     </v-flex>
@@ -28,44 +29,44 @@
             </v-container>
         </v-form>
 
-<!--        <h1>제목</h1>-->
-<!--        <h2>{{this.album.title}}</h2>-->
-<!--        <hr>-->
-<!--        <h1>내용</h1>-->
-<!--        <div v-html="this.getAlbum.content"></div>-->
-<!--        <hr>-->
-<!--        <v-form @submit.prevent="onSubmit">-->
-<!--            <v-container>-->
-<!--                <v-layout row wrap>-->
-<!--                    <v-flex xs12 sm6>-->
-<!--                        <v-text-field-->
-<!--                                label="댓글을 입력..."-->
-<!--                                messages="댓글 작성"-->
-<!--                                v-model="comment"-->
-<!--                                single-line-->
-<!--                        ></v-text-field>-->
-<!--                    </v-flex>-->
-<!--                </v-layout>-->
-<!--            </v-container>-->
-<!--        </v-form>-->
+        <!--        <h1>제목</h1>-->
+        <!--        <h2>{{this.album.title}}</h2>-->
+        <!--        <hr>-->
+        <!--        <h1>내용</h1>-->
+        <!--        <div v-html="this.getAlbum.content"></div>-->
+        <!--        <hr>-->
+        <!--        <v-form @submit.prevent="onSubmit">-->
+        <!--            <v-container>-->
+        <!--                <v-layout row wrap>-->
+        <!--                    <v-flex xs12 sm6>-->
+        <!--                        <v-text-field-->
+        <!--                                label="댓글을 입력..."-->
+        <!--                                messages="댓글 작성"-->
+        <!--                                v-model="comment"-->
+        <!--                                single-line-->
+        <!--                        ></v-text-field>-->
+        <!--                    </v-flex>-->
+        <!--                </v-layout>-->
+        <!--            </v-container>-->
+        <!--        </v-form>-->
 
-<!--        <div class="commentWrapper" v-for="comment in this.getAlbum.albumCommentList" :key="comment.id">-->
-<!--            <div>-->
-<!--                <span>{{comment.createDate}}</span><br>-->
-<!--                <span>{{comment.comment}}</span>-->
-<!--            </div>-->
-<!--        </div>-->
+        <!--        <div class="commentWrapper" v-for="comment in this.getAlbum.albumCommentList" :key="comment.id">-->
+        <!--            <div>-->
+        <!--                <span>{{comment.createDate}}</span><br>-->
+        <!--                <span>{{comment.comment}}</span>-->
+        <!--            </div>-->
+        <!--        </div>-->
 
     </div>
 </template>
 
 <script>
-    import {mapActions} from 'vuex';
+    import VueTrix from 'vue-trix'
+    import {mapActions} from 'vuex'
 
     export default {
         name: "AlbumPost",
-        computed: {
-        },
+        components: { VueTrix },
         data() {
             return {
                 albumId: '',
@@ -75,19 +76,19 @@
         methods: {
             ...mapActions(['fetchAlbum', 'createAlbum', 'createAlbumComment']),
 
-            submit(){
+            submit() {
                 let payload = {
                     title: this.albumPost.title,
                     content: this.albumPost.content
                 };
 
-                this.createAlbum(payload);
+                this.createAlbum(payload).then(() => {
+                    this.$router.push({path: '/album'});
+                })
             },
 
-            cancel(){
-                console.debug("back");
-                history.back();
-                // this.$router.push({path: '/album'});
+            cancel() {
+                this.$router.push({path: '/album'});
             },
         }
     }

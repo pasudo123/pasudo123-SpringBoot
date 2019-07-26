@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import edu.pasudo123.app.album.comment.AlbumComment;
 import edu.pasudo123.app.album.photo.AlbumPhoto;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
@@ -19,7 +18,6 @@ import java.util.List;
  * 해당 Dto 가 있으므로, album id 외래키를 이용하여 댓글과 사진을 들고온다.
  **/
 @Getter
-@Setter
 @ToString(exclude = {"albumCommentList", "albumPhotoList"})
 public class ResponseAlbumPostDto {
 
@@ -29,7 +27,9 @@ public class ResponseAlbumPostDto {
     private List<AlbumPhoto> albumPhotoList;
     private List<AlbumComment> albumCommentList;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createDate;
-    private LocalDateTime updateDate;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime updateDate;
 }
