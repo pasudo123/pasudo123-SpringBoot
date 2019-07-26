@@ -23,7 +23,7 @@ public class AlbumService {
     private final AlbumRepository albumRepository;
 
     @Transactional
-    ResponseAlbumDto createAlbum(final RequestAlbumDto requestAlbumDto) {
+    ResponseAlbumSelectDto createAlbum(final RequestAlbumDto requestAlbumDto) {
 
         Album album = Album.builder()
                 .title(requestAlbumDto.getTitle())
@@ -32,16 +32,35 @@ public class AlbumService {
 
         Album savedAlbum = albumRepository.save(album);
 
-        return modelMapperUtils.map(savedAlbum, ResponseAlbumDto.class);
+        return modelMapperUtils.map(savedAlbum, ResponseAlbumSelectDto.class);
     }
 
     @Transactional(readOnly = true)
-    List<ResponseAlbumDto> findAll() {
+    List<ResponseAlbumSelectDto> findAll() {
 
         List<Album> albumList = albumRepository.findAll();
 
-        return modelMapperUtils.mapAll(albumList, ResponseAlbumDto.class);
+        return modelMapperUtils.mapAll(albumList, ResponseAlbumSelectDto.class);
     }
+
+    @Transactional(readOnly = true)
+    public ResponseAlbumPostDto findDtoById(Long id) throws ResourceNotFoundException {
+
+        Album album = albumRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Album Resource Not Found."));
+
+        return modelMapperUtils.map(album, ResponseAlbumPostDto.class);
+    }
+
+    @Transactional(readOnly = true)
+    public Album findEntityById(Long id) throws ResourceNotFoundException {
+
+        Album album = albumRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Album Resource Not Found."));
+
+        return album;
+    }
+
 
     @Transactional
     void update(final Long id, final RequestAlbumDto requestAlbumDto) throws ResourceNotFoundException {

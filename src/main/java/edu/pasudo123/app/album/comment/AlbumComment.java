@@ -2,6 +2,7 @@ package edu.pasudo123.app.album.comment;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import edu.pasudo123.app.album.Album;
 import edu.pasudo123.app.common.TimeEntity;
 import lombok.*;
@@ -27,8 +28,9 @@ public class AlbumComment extends TimeEntity {
     @Column(name = "COMMENT")
     private String comment;
 
+    @JsonManagedReference
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ALBUM_ID")
+    @JoinColumn(name = "ALBUM_ID", nullable = false)
     private Album album;
 
     @Builder

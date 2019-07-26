@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 /**
  * @author pasudo123
  * @since 2019-07-11
@@ -13,11 +16,11 @@ import lombok.ToString;
  */
 @Getter
 @Setter
-@ToString(exclude = {"album"})
 public class RequestAlbumCommentDto {
 
     private Long id;
+
+    @NotBlank(message = "comment is mandatory")
     private String comment;
-    private Album album;
 
 }

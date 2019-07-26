@@ -1,12 +1,9 @@
 package edu.pasudo123.app.album;
 
-import edu.pasudo123.app.album.comment.AlbumComment;
-import edu.pasudo123.app.album.photo.AlbumPhoto;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 
-import java.util.List;
+import javax.validation.constraints.NotBlank;
 
 /**
  * @author pasudo123
@@ -15,14 +12,15 @@ import java.util.List;
  * email: oraedoa@gmail.com
  */
 @Getter
-@Setter
-@ToString(exclude = {"albumCommentList", "albumPhotoList"})
+@EqualsAndHashCode
 public class RequestAlbumDto {
 
     private Long id;
+
+    @NotBlank(message = "title is mandatory")
     private String title;
+
+    @NotBlank(message = "content is mandatory")
     private String content;
-    private List<AlbumComment> albumCommentList;
-    private List<AlbumPhoto> albumPhotoList;
 
 }

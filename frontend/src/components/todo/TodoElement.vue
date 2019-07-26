@@ -14,7 +14,7 @@
 <script>
 
     import {mapActions, mapGetters} from 'vuex';
-    import DateUtil from '../../utils/DateUtil'
+    import DateUtil from '../../utils/DateUtil';
 
     export default {
         name: "TodoElementWrapper",
@@ -25,7 +25,7 @@
             ...mapActions(['fetchTodos', 'deleteTodo']),
 
             dateFormat(date){
-                return DateUtil.parseToyyyyMMdd_hhmmss(date);
+                return DateUtil.parseStringToyyyyMMdd_hhmmss(date);
             }
 
         },

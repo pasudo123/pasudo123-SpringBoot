@@ -10,11 +10,10 @@
 <script>
 
     import PaHeader from './PaHeader'
-    import TodoMain from './todo/TodoMain'
 
     export default {
         name: "PaMain",
-        components: {PaHeader, TodoMain}
+        components: {PaHeader}
     }
 </script>
 
@@ -23,6 +22,5 @@
         box-sizing: border-box;
         margin: 0 auto;
         padding: 0;
-        font-family: Consolas;
     }
 </style>
